@@ -41,9 +41,11 @@
         <div class="col-md-4">
           <label for="inputState" class="form-label">State*</label>
           <input 
-          [class.is-valid]="stateControl?.valid"
-          [class.is-invalid]="stateControl?.touched && stateControl?.invalid"
-          formControlName="state" type="text" class="form-control" id="inputState">          
+            [class.is-valid]="stateControl?.valid"
+            [class.is-invalid]="stateControl?.touched && (stateControl?.invalid || stateControl?.errors?.['required'])"
+            formControlName="state" type="text" class="form-control" id="inputState">          
+          <div *ngIf="(stateControl?.invalid || stateControl?.errors?.['required']) && stateControl?.touched" class="invalid-feedback">
+            State is required</div>
           <div *ngIf="stateControl?.hasError('noState')" class="invalid-feedback">
             We do not ship to the following states: Tierra del Fuego, Catamarca, San Juan</div>
         </div>
