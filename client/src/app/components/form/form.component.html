@@ -1,29 +1,60 @@
 <div class="container">
     <h1>Submission form</h1>
-    <form [formGroup]="customerForm" class="row g-3">
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="row g-3">
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Email*</label>
-          <input formControlName="email" type="email" class="form-control" id="inputEmail4">
+          <input 
+          [class.is-valid]="emailControl?.valid"
+          [class.is-invalid]="emailControl?.touched && emailControl?.invalid"
+          formControlName="email" 
+          type="email" class="form-control" id="inputEmail4">
+          <div *ngIf="emailControl?.invalid" class="invalid-feedback">
+            Email format is not supported</div>          
         </div>
         <div class="col-md-6">
           <label for="inputPassword4" class="form-label">Password*</label>
-          <input formControlName="password" type="password" class="form-control" id="inputPassword4">
+          <input 
+          [class.is-valid]="passwordControl?.valid"
+          [class.is-invalid]="passwordControl?.touched && passwordControl?.invalid"
+          formControlName="password" type="password" class="form-control" id="inputPassword4">
+          <div *ngIf="passwordControl?.invalid" class="invalid-feedback">
+            At least one lowercase letter, one uppercase letter and a minimum of 8 characters are required</div>
         </div>
         <div class="col-12">
           <label for="inputAddress" class="form-label">Address*</label>
-          <input formControlName="address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-        </div>        
+          <input 
+          [class.is-valid]="addressControl?.valid"
+          [class.is-invalid]="addressControl?.touched && addressControl?.invalid"
+          formControlName="address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+          <div *ngIf="addressControl?.invalid" class="invalid-feedback">
+            Address is required</div>
+        </div>                
         <div class="col-md-6">
           <label for="inputCity" class="form-label">City*</label>
-          <input formControlName="city" type="text" class="form-control" id="inputCity">
+          <input 
+          [class.is-valid]="cityControl?.valid"
+          [class.is-invalid]="cityControl?.touched && cityControl?.invalid"
+          formControlName="city" type="text" class="form-control" id="inputCity">
+          <div *ngIf="cityControl?.invalid" class="invalid-feedback">
+            City is required</div>
         </div>
         <div class="col-md-4">
           <label for="inputState" class="form-label">State*</label>
-          <input formControlName="state" type="text" class="form-control" id="inputState">          
+          <input 
+          [class.is-valid]="stateControl?.valid"
+          [class.is-invalid]="stateControl?.touched && stateControl?.invalid"
+          formControlName="state" type="text" class="form-control" id="inputState">          
+          <div *ngIf="stateControl?.hasError('noState')" class="invalid-feedback">
+            We do not ship to the following states: Tierra del Fuego, Catamarca, San Juan</div>
         </div>
         <div class="col-md-2">
-          <label for="inputZip" class="form-label">Zip*</label>
-          <input formControlName="zip" type="text" class="form-control" id="inputZip">
+          <label for="inputZip" class="form-label">Zip</label>
+          <input 
+          [class.is-valid]="zipControl?.valid"
+          [class.is-invalid]="zipControl?.touched && zipControl?.invalid"
+          formControlName="zip" type="text" class="form-control" id="inputZip">
+          <div *ngIf="zipControl?.invalid" class="invalid-feedback">
+            Only admit numbers</div>
         </div>
         
         <div class="col-12">
